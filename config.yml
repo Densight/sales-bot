@@ -1,0 +1,38 @@
+# ── SALES INTELLIGENCE BOT — CONFIGURATION ───────────────────────────────────
+# Edit this file to personalise the bot for your company.
+# No code changes needed — just update the values below and push.
+
+company:
+  name: "Densight Labs"
+  service: "AI implementation and workflow automation for enterprise teams"
+  target_market: "US-based mid-market companies scaling their operations or tech teams"
+
+# What kind of trigger signals to look for
+# Examples: "hiring", "funding", "launched", "series a", "raised"
+signals:
+  keywords:
+    - "hiring"
+    - "launched"
+    - "show hn"
+    - "raised"
+    - "series a"
+    - "series b"
+    - "funding"
+
+# How many companies to identify per run (max 5 recommended)
+output:
+  companies: 3
+
+# ── HOW TO CUSTOMISE FOR YOUR COMPANY ────────────────────────────────────────
+#
+# If you sell HR software:
+#   service: "HR automation software for mid-market companies"
+#   target_market: "Companies with 100-500 employees going through rapid hiring"
+#
+# If you sell cybersecurity:
+#   service: "Cybersecurity compliance and threat detection for SaaS companies"
+#   target_market: "SaaS companies that recently raised funding or went public"
+#
+# If you sell sales training:
+#   service: "Sales training and enablement for B2B tech companies"
+#   target_market: "B2B companies that just hired a new VP Sales or expanded sales team"

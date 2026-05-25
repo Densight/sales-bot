@@ -1,0 +1,46 @@
+name: Sales Intelligence Brief
+
+on:
+  # Every Monday 8:00 AM PKT (3:00 AM UTC)
+  schedule:
+    - cron: "0 3 * * 1"
+
+  # Run manually from GitHub UI — useful for demo and testing
+  workflow_dispatch:
+    inputs:
+      target_market:
+        description: "Override target market (optional)"
+        required: false
+        default: ""
+
+jobs:
+  generate-brief:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Sales Intelligence Bot
+        env:
+          ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN:           ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO:            ${{ github.repository }}
+          GOOGLE_DOC_ID:          ${{ secrets.GOOGLE_DOC_ID }}
+          GOOGLE_CREDENTIALS:     ${{ secrets.GOOGLE_CREDENTIALS }}
+          HUNTER_API_KEY:          ${{ secrets.HUNTER_API_KEY }}
+          YOUR_COMPANY:       "Densight Labs"
+          YOUR_SERVICE:       "AI implementation and workflow automation for enterprise teams"
+          TARGET_MARKET:      ${{ inputs.target_market || 'US-based mid-market companies scaling their operations or tech teams' }}
+        run: python scripts/generate_brief.py
